@@ -34,7 +34,7 @@ def create_connection(user, password, host, database, port=3306):
         print(f"Error connecting to the MariaDB Server: {e}")
     return conn
 
-def create_pp_data_table():
+def create_pp_data_table(conn):
     """
     Create pp_data table
     """
@@ -75,7 +75,7 @@ def create_pp_data_table():
     
     conn.commit()
 
-def create_postcode_data_table():
+def create_postcode_data_table(conn):
     """
     Create postcode_data table
     """
@@ -119,7 +119,7 @@ def create_postcode_data_table():
     
     conn.commit()
 
-def create_prices_coordinates_data_table():
+def create_prices_coordinates_data_table(conn):
     """
     Create prices_coordinates_data table
     """

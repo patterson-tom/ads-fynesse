@@ -20,7 +20,7 @@ def make_prediction(results, property_type, num_amenities):
   x_pred = [num_amenities, property_type=="F", property_type=="S", property_type=="D", property_type=="T", property_type=="O"]
   return results.get_prediction(x_pred).predicted_mean[0]
 
-def predict_price(latitude, longitude, date, property_type):
+def predict_price(conn, latitude, longitude, date, property_type):
   box_size = 0.1
   datetime_obj = datetime.strptime(date, "%Y-%m-%d")
   earliest_obj = datetime_obj - relativedelta(months=12)
@@ -32,10 +32,6 @@ def predict_price(latitude, longitude, date, property_type):
   access.join_on_postcode_in_range(conn, latitude, longitude, box_size, earliest, latest)
 
   #load table into dataframe
-  conn = access.create_connection(user=credentials["username"], 
-                         password=credentials["password"],
-             host=database_details["url"],
-             database="property_prices")
   sql_query = pd.read_sql_query('SELECT * FROM prices_coordinates_data', conn)
   df = pd.DataFrame(sql_query)
 

@@ -34,7 +34,7 @@ def create_connection(user, password, host, database, port=3306):
         print(f"Error connecting to the MariaDB Server: {e}")
     return conn
 
-def create_pp_data_table(conn, filepath):
+def create_pp_data_table():
     """
     Create pp_data table
     """
@@ -75,7 +75,7 @@ def create_pp_data_table(conn, filepath):
     
     conn.commit()
 
-def create_postcode_data_table(conn, filepath):
+def create_postcode_data_table():
     """
     Create postcode_data table
     """
@@ -119,7 +119,7 @@ def create_postcode_data_table(conn, filepath):
     
     conn.commit()
 
-def create_prices_coordinates_data_table(conn, filepath):
+def create_prices_coordinates_data_table():
     """
     Create prices_coordinates_data table
     """
@@ -164,10 +164,10 @@ def download_and_save_csv(url, filepath):
   df = pd.read_csv(url)
   df.to_csv(filepath)
 
-def download_and_unzip_file(url, dir):
+def download_and_unzip_file(url, direc):
   f, _ = urllib.request.urlretrieve(url)
   zipped_f = zipfile.ZipFile(f, 'r')
-  zipped_f.extractall(dir)
+  zipped_f.extractall(direc)
 
 def upload_csv_file_to_postcode_data_table(conn, filepath):
     """

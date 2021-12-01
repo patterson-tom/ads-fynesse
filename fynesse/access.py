@@ -65,7 +65,7 @@ def create_pp_data_table(conn):
     #also add primary key and index certain columns
     cur.execute("""ALTER TABLE `pp_data`
                     ADD PRIMARY KEY (`db_id`);
-                    ALTER TABLE `pp_data` MODIFY `db_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+                    MODIFY `db_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
                     CREATE INDEX `pp.postcode` USING HASH
                       ON `pp_data`
                         (postcode);

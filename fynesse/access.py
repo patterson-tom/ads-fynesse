@@ -105,15 +105,15 @@ def create_postcode_data_table(conn):
 
     #also add primary key and index certain columns
     cur.execute("""ALTER TABLE `postcode_data`
-                    ADD PRIMARY KEY (`db_id`);
-                    ALTER TABLE `postcode_data` MODIFY `db_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
-                    CREATE INDEX `po.postcode` USING HASH
+                    ADD PRIMARY KEY (`db_id`)""")
+    cur.execute("""ALTER TABLE `postcode_data` MODIFY `db_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1""")
+    cur.execute("""CREATE INDEX `po.postcode` USING HASH
                       ON `postcode_data`
-                        (postcode);
-                    CREATE INDEX `po.lattitude` USING HASH
+                        (postcode)""")
+    cur.execute("""CREATE INDEX `po.lattitude` USING HASH
                       ON `postcode_data`
-                        (lattitude);
-                    CREATE INDEX `po.longitude` USING HASH
+                        (lattitude)""")
+    cur.execute("""CREATE INDEX `po.longitude` USING HASH
                       ON `postcode_data`
                         (longitude);""")
     

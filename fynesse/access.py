@@ -207,8 +207,14 @@ def join_on_postcode_in_range(conn, lat, lon, box_size, start_date, end_date):
               (SELECT * FROM postcode_data WHERE lattitude > %s AND lattitude < %s AND longitude > %s AND longitude < %s) po
               ON (pp.postcode = po.postcode)
               """, (start_date, end_date, lat-box_size/2, lat+box_size/2, lon-box_size/2, lon+box_size/2))
-  
-def data():
-    """Read the data from the web or local file, returning structured format such as a data frame"""
-    raise NotImplementedError
+
+#can use this to setup everything at once
+def data(conn):
+    create_pp_data_table(conn)
+    load_pp_data(conn)
+
+    create_postcode_data_table(conn)
+    load_postcode_data(conn)
+
+    create_prices_coordinates_data_table(conn)
 

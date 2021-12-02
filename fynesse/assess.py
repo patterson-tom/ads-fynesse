@@ -33,6 +33,11 @@ def longlat_maxmin(conn):
     minlat, maxlat, minlon, maxlon = cur.fetchall()[0]
     return minlat, maxlat, minlon, maxlon
 
+def remove_anomalous_lat_values(conn):
+  cur = conn.cursor()
+  cur.execute("DELETE FROM postcode_data WHERE lattitude < 0.01")
+  cur.commit()
+
 def get_pois(lat, lon, box_size, tags):
   north = lat + box_size/2
   south = lat - box_size/2

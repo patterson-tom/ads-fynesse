@@ -12,7 +12,7 @@ def remove_price_outliers(conn, remove_below=0, remove_above=None):
   cur = conn.cursor()
   above_condition = (" OR price > " + str(remove_above)) if remove_above is not None else ""
   cur.execute("DELETE FROM pp_data WHERE price < " + str(remove_below) + above_condition)
-  cur.commit()
+  conn.commit()
 
 def sales_date_maxmin(conn):
   cur = conn.cursor()
@@ -24,7 +24,7 @@ def sales_date_maxmin(conn):
 def remove_missing_postcodes(conn):
   cur = conn.cursor()
   cur.execute("DELETE FROM pp_data WHERE postcode=''")
-  cur.commit()
+  conn.commit()
 
 #returns min lat, max lat, min lon, max lon
 def longlat_maxmin(conn):
@@ -36,7 +36,7 @@ def longlat_maxmin(conn):
 def remove_anomalous_lat_values(conn):
   cur = conn.cursor()
   cur.execute("DELETE FROM postcode_data WHERE lattitude < 0.01")
-  cur.commit()
+  conn.commit()
 
 def get_pois(lat, lon, box_size, tags):
   north = lat + box_size/2

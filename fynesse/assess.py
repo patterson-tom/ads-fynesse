@@ -27,7 +27,7 @@ def remove_missing_postcodes(conn):
   cur.commit()
 
 #returns min lat, max lat, min lon, max lon
-def longlat_maxmin(conn)
+def longlat_maxmin(conn):
     cur = conn.cursor()
     cur.execute("SELECT MIN(lattitude), MAX(lattitude), MIN(longitude), MAX(longitude) FROM postcode_data")
     minlat, maxlat, minlon, maxlon = cur.fetchall()[0]

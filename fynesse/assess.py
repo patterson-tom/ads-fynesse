@@ -8,6 +8,31 @@ import pandas as pd
 
 """Place commands in this file to assess the data you have downloaded. How are missing values encoded, how are outliers encoded? What do columns represent, makes rure they are correctly labeled. How is the data indexed. Crete visualisation routines to assess the data (e.g. in bokeh). Ensure that date formats are correct and correctly timezoned."""
 
+def remove_price_outliers(conn, remove_below=0, remove_above=None):
+  cur = conn.cursor()
+  above_condition = (" OR price > " + str(remove_above)) if remove_above is not None else ""
+  cur.execute("DELETE FROM pp_data WHERE price < " + str(remove_below) + above_condition)
+  cur.commit()
+
+def sales_date_maxmin(conn):
+  cur = conn.cursor()
+  cur.execute("SELECT MIN(date_of_transfer), MAX(date_of_transfer) FROM pp_data")
+
+  res = cur.fetchall()[0]
+  return res[0], res[1]
+
+def remove_missing_postcodes(conn):
+  cur = conn.cursor()
+  cur.execute("DELETE FROM pp_data WHERE postcode=''")
+  cur.commit()
+
+#returns min lat, max lat, min lon, max lon
+def longlat_maxmin(conn)
+    cur = conn.cursor()
+    cur.execute("SELECT MIN(lattitude), MAX(lattitude), MIN(longitude), MAX(longitude) FROM postcode_data")
+    minlat, maxlat, minlon, maxlon = cur.fetchall()[0]
+    return minlat, maxlat, minlon, maxlon
+
 def get_pois(lat, lon, box_size, tags):
   north = lat + box_size/2
   south = lat - box_size/2
@@ -48,6 +73,8 @@ def scaled_lons(conn, lons):
   scaled_lons = [(lon - float(minlon)) / float(maxlon - minlon) for lon in lons]
 
   return scaled_lons
+
+
 
 def data():
     """Load the data from access and ensure missing values are correctly encoded as well as indices correct, column names informative, date and times correctly formatted. Return a structured data structure such as a data frame."""

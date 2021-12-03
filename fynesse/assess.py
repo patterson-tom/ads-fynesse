@@ -120,7 +120,7 @@ def sales_over_time(conn, use_precomputed_result=True):
         res[year] = count
     return res
 
-def fynesse.assess.postcode_district_sales(conn, use_precomputed_values=True):
+def postcode_district_sales(conn, use_precomputed_values=True):
     district_data = []
     
     if not use_precomputed_values:

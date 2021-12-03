@@ -80,6 +80,44 @@ def scaled_lons(conn, lons):
   return scaled_lons
 
 
+def sales_over_time(conn, use_precomputed_result=True):
+    if use_precomputed_result:
+        return {"1995":	796752,
+                "1996":	964931,
+                "1997":	1094034,
+                "1998":	1050098,
+                "1999":	1194438,
+                "2000":	1128901,
+                "2001":	1245388,
+                "2002":	1351270,
+                "2003":	1235010,
+                "2004":	1231502,
+                "2005":	1061047,
+                "2006":	1325642,
+                "2007":	1271929,
+                "2008":	649408,
+                "2009":	625099,
+                "2010":	663121,
+                "2011":	661010,
+                "2012":	668633,
+                "2013":	810717,
+                "2014":	984393,
+                "2015":	1010118,
+                "2016":	1044892,
+                "2017":	1064787,
+                "2018":	1033465,
+                "2019":	1001767,
+                "2020":	818573,
+                "2021":	554279}
+
+    cur = conn.cursor()
+    cur.execute("SELECT YEAR(date_of_transfer), COUNT(*) FROM pp_data WHERE postcode='S11 8FS' GROUP BY YEAR(date_of_transfer)")
+    rows = cur.fetchall()
+    res = {}
+    for year, count in rows:
+        res[year] = count
+    return res
+
 
 def data():
     """Load the data from access and ensure missing values are correctly encoded as well as indices correct, column names informative, date and times correctly formatted. Return a structured data structure such as a data frame."""

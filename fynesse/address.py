@@ -111,8 +111,6 @@ def predict_price(conn, latitude, longitude, date, property_type):
   m_linear = sm.OLS(df_train.price,design)
   results = m_linear.fit()
 
-  print(results.summary())
-
   #validate on testing set
   avg_err = 0
   for _, row in df_test.iterrows():
